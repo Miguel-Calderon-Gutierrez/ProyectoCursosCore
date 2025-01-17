@@ -5,15 +5,18 @@ using System;
 using static Aplicacion.Cursos.ConsultaId;
 using System.Threading.Tasks;
 using System.Threading;
+using System.ComponentModel.DataAnnotations;
 
 namespace Aplicacion.Cursos
 {
     public class Nuevo
     {
         public class Ejecuta : IRequest
-        {            
+        {
+            [Required(ErrorMessage = "Por favor ingrese el titulo")]
             public string Titulo { get; set; }
-            public string Descripcion { get; set; }
+            [Required(ErrorMessage = "Por favor ingrese una descripción")]
+            public string Descripcion { get; set; }        
             public DateTime FechaPublicacion { get; set; }
         }
 
@@ -31,15 +34,16 @@ namespace Aplicacion.Cursos
                 {
                     Titulo = request.Titulo,
                     Descripcion = request.Descripcion,
-                    FechaPublicacion = request.FechaPublicacion         
+                    FechaPublicacion = request.FechaPublicacion
                 };
 
                 _dbContext.Curso.Add(curso);
 
-               var valor = await _dbContext.SaveChangesAsync();
+                var valor = await _dbContext.SaveChangesAsync();
 
-                if (valor != 0) {
-                    return Unit.Value;   
+                if (valor != 0)
+                {
+                    return Unit.Value;
                 }
 
                 throw new Exception("No se pudo insertar el curso");
