@@ -19,7 +19,7 @@ namespace WebAPI.Middleware
             _logger = logger;
         }
 
-        public async Task Invocar(HttpContext context)
+        public async Task Invoke(HttpContext context)
         {
             try
             {
@@ -52,6 +52,7 @@ namespace WebAPI.Middleware
             }
 
             context.Response.ContentType = "application/json";
+
             if (errores != null)
             {
                 var resultados = JsonConvert.SerializeObject(new { errores });

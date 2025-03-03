@@ -3,6 +3,8 @@ using Persistencia;
 using System.Threading.Tasks;
 using System.Threading;
 using System;
+using Aplicacion.ManejadorError;
+using System.Net;
 
 namespace Aplicacion.Cursos
 {
@@ -25,8 +27,8 @@ namespace Aplicacion.Cursos
             {
                 var curso = await _dbContext.Curso.FindAsync(request.CursoId);
 
-                if (curso == null) {
-                    throw new Exception("No se pudo eliminar el curso, no existe");
+                if (curso == null) {                    
+                    throw new ManejadorExepcion(HttpStatusCode.NotFound, new {mensaje = "No se encontró el curso" }); 
                 }
 
                 _dbContext.Remove(curso);

@@ -1,6 +1,8 @@
-﻿using Dominio;
+﻿using Aplicacion.ManejadorError;
+using Dominio;
 using MediatR;
 using Persistencia;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,6 +26,11 @@ namespace Aplicacion.Cursos
             public async Task<Curso> Handle(CursoUnico request, CancellationToken cancellationToken)
             {
                 var curso = await _dbContext.Curso.FindAsync(request.Id);
+
+                if (curso == null)
+                {                
+                    throw new ManejadorExepcion(HttpStatusCode.NotFound, new { mensaje = "No se encontró el curso" });
+                }
                 return curso;
             }
         }

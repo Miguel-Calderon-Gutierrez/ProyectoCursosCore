@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.ComponentModel.DataAnnotations;
 using FluentValidation;
+using Aplicacion.ManejadorError;
+using System.Net;
 
 namespace Aplicacion.Cursos
 {
@@ -17,7 +19,7 @@ namespace Aplicacion.Cursos
             //[Required(ErrorMessage = "Por favor ingrese el titulo")]
             public string Titulo { get; set; }
             //[Required(ErrorMessage = "Por favor ingrese una descripción")]
-            public string Descripcion { get; set; }        
+            public string Descripcion { get; set; }
             public DateTime? FechaPublicacion { get; set; }
         }
 

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using System;
 using FluentValidation;
+using Aplicacion.ManejadorError;
+using System.Net;
 
 namespace Aplicacion.Cursos
 {
@@ -41,7 +43,7 @@ namespace Aplicacion.Cursos
                 var curso = await _dbContext.Curso.FindAsync(request.CursoId);
 
                 if (curso == null) {
-                    throw new Exception("El curso no existe");
+                    throw new ManejadorExepcion(HttpStatusCode.NotFound, new { mensaje = "No se encontró el curso" });                   
                 }
                 
                 curso.Titulo = request.Titulo ?? curso.Titulo ;
